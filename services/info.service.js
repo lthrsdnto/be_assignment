@@ -7,8 +7,10 @@ class InfoService extends Response {
   async getAllInfoByUserID() {
     try {
       let exist = await User.findAll({
-        include: { model: Info, as: "info_data" },
-
+        include: [
+          { model: Info, as: "info_data" },
+          { model: Task, as: "task_data" },
+        ],
         attributes: { exclude: ["createdAt", "updatedAt"] },
       });
       if (exist.length != 0) {
